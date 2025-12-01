@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const OPENAI_KEY = process.env.OPENAI_API_KEY;
+const QWEN_KEY = process.env.QWEN_API_KEY;
 
 export default async function extractSnippet(text) {
   const prompt = `
@@ -19,12 +19,12 @@ ${text}
 只输出 JSON。`;
 
   const res = await axios.post(
-    "https://api.openai.com/v1/chat/completions",
+    "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
     {
-      model: "gpt-4.1-mini",
+      model: "qwen-plus",
       messages: [{ role: "user", content: prompt }]
     },
-    { headers: { Authorization: `Bearer ${OPENAI_KEY}` } }
+    { headers: { Authorization: `Bearer ${QWEN_KEY}` } }
   );
 
   return JSON.parse(res.data.choices[0].message.content);
